@@ -1,0 +1,9 @@
+#wrapper{
+    position:relative;
+    margin:auto;
+    height: fit-content;
+    width:fit-content;
+}
+#myCanvas{
+    background-color: aqua;
+}
