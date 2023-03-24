@@ -42,7 +42,8 @@ function checkKey(e) {
       map1[coords["i"] - 1][coords["j"]] = "M";
       map1[coords["i"]][coords["j"]] = "G";
       moveList = moveList + "w";
-      if (moveList.length == 10) startEnemy();
+      if (moveList.length == 10) map1[0][0] = "O";
+      if (moveList.length == 20) startEnemy();
       drawLab();
     }
   } else if (e.keyCode == "40") {
@@ -50,7 +51,8 @@ function checkKey(e) {
       map1[coords["i"] + 1][coords["j"]] = "M";
       map1[coords["i"]][coords["j"]] = "G";
       moveList = moveList + "s";
-      if (moveList.length == 10) startEnemy();
+      if (moveList.length == 10) map1[0][0] = "O";
+      if (moveList.length == 20) startEnemy();
       drawLab();
     }
   } else if (e.keyCode == "37") {
@@ -58,7 +60,8 @@ function checkKey(e) {
       map1[coords["i"]][coords["j"] - 1] = "M";
       map1[coords["i"]][coords["j"]] = "G";
       moveList = moveList + "a";
-      if (moveList.length == 10) startEnemy();
+      if (moveList.length == 10) map1[0][0] = "O";
+      if (moveList.length == 20) startEnemy();
       drawLab();
     }
   } else if (e.keyCode == "39") {
@@ -66,7 +69,9 @@ function checkKey(e) {
       map1[coords["i"]][coords["j"] + 1] = "M";
       map1[coords["i"]][coords["j"]] = "G";
       moveList = moveList + "d";
-      if (moveList.length == 10) startEnemy();
+
+      if (moveList.length == 10) map1[0][0] = "O";
+      if (moveList.length == 20) startEnemy();
       drawLab();
     }
   }
@@ -78,46 +83,50 @@ document.addEventListener("keypress", (e) => {
   switch (keyCode) {
     case "w":
     case "W":
-      console.log(coords);
       if (checkMoveUp(coords["i"], coords["j"]) == true) {
         map1[coords["i"] - 1][coords["j"]] = "M";
         map1[coords["i"]][coords["j"]] = "G";
         moveList = moveList + "w";
-        if (moveList.length == 10) startEnemy();
+        console.log(moveList);
+        if (moveList.length == 10) map1[0][0] = "O";
+        if (moveList.length == 20) startEnemy();
         drawLab();
       }
       break;
     case "a":
     case "A":
-      console.log(coords);
       if (checkMoveLeft(coords["i"], coords["j"]) == true) {
         map1[coords["i"]][coords["j"] - 1] = "M";
         map1[coords["i"]][coords["j"]] = "G";
         moveList = moveList + "a";
-        if (moveList.length == 10) startEnemy();
+        console.log(moveList);
+        if (moveList.length == 10) map1[0][0] = "O";
+        if (moveList.length == 20) startEnemy();
         drawLab();
       }
 
       break;
     case "s":
     case "S":
-      console.log(coords);
       if (checkMoveDown(coords["i"], coords["j"]) == true) {
         map1[coords["i"] + 1][coords["j"]] = "M";
         map1[coords["i"]][coords["j"]] = "G";
         moveList = moveList + "s";
-        if (moveList.length == 10) startEnemy();
+        console.log(moveList);
+        if (moveList.length == 10) map1[0][0] = "O";
+        if (moveList.length == 20) startEnemy();
         drawLab();
       }
       break;
     case "d":
     case "D":
-      console.log(coords);
       if (checkMoveRight(coords["i"], coords["j"]) == true) {
         map1[coords["i"]][coords["j"] + 1] = "M";
         map1[coords["i"]][coords["j"]] = "G";
         moveList = moveList + "d";
-        if (moveList.length == 10) startEnemy();
+        console.log(moveList);
+        if (moveList.length == 10) map1[0][0] = "O";
+        if (moveList.length == 20) startEnemy();
         drawLab();
       }
       break;
@@ -126,13 +135,53 @@ document.addEventListener("keypress", (e) => {
   }
 });
 
-function startEnemy() {}
+function startEnemy() {
+  for (let i = 0; i < moveList.length; i++) {
+    let enemyCoords = findEnemy();
+
+    if (moveList.charAt(i) == "w") {
+      map1[enemyCoords["i"]][enemyCoords["j"]] = ".";
+      map1[enemyCoords["i"] - 1][enemyCoords["j"]] = "O";
+
+      //moveList=moveList.substring(i, moveList.length);
+      drawLab();
+    } else if (moveList.charAt(i) == "a") {
+      map1[enemyCoords["i"]][enemyCoords["j"]] = ".";
+      map1[enemyCoords["i"]][enemyCoords["j"] - 1] = "O";
+      //moveList=moveList.substring(i, moveList.length);
+      drawLab();
+    } else if (moveList.charAt(i) == "s") {
+      map1[enemyCoords["i"]][enemyCoords["j"]] = ".";
+      map1[enemyCoords["i"] + 1][enemyCoords["j"]] = "O";
+
+      //moveList=moveList.substring(i, moveList.length);
+      drawLab();
+    } else if (moveList.charAt(i) == "d") {
+      map1[enemyCoords["i"]][enemyCoords["j"]] = ".";
+      map1[enemyCoords["i"]][enemyCoords["j"] + 1] = "O";
+
+      //moveList=moveList.substring(i, moveList.length);
+      drawLab();
+    }
+  }
+  drawLab();
+}
 
 //gets coordinates of the character
 function findMc() {
   for (let i = 0; i < map1.length; i++) {
     for (let j = 0; j < map1[i].length; j++) {
       if (map1[i][j] == "M") {
+        return { i, j };
+      }
+    }
+  }
+}
+
+function findEnemy() {
+  for (let i = 0; i < map1.length; i++) {
+    for (let j = 0; j < map1[i].length; j++) {
+      if (map1[i][j] == "O") {
         return { i, j };
       }
     }
@@ -188,6 +237,12 @@ function drawLab() {
       } else if (map1[i][j] == "G") {
         ctx.beginPath();
         ctx.fillStyle = "rgb(95, 2, 31)";
+        ctx.rect(x, y, 20, 20);
+        ctx.fill();
+        x = x + 20;
+      } else if (map1[i][j] == "O") {
+        ctx.beginPath();
+        ctx.fillStyle = "purple";
         ctx.rect(x, y, 20, 20);
         ctx.fill();
         x = x + 20;
