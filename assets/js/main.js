@@ -4,6 +4,7 @@ const path = document.getElementById("sandPath");
 const walls = document.getElementById("sandWall");
 const walkPath = document.getElementById("walkedPath");
 const boulder = document.getElementById("boulder");
+const finish = document.getElementById("finish");
 let map1 = [
   "M.#############################",
   "....#...#.....#.......#.#...#.#",
@@ -48,13 +49,12 @@ function checkKey(e) {
       if (moveList.length == 10) map1[0][0] = "O";
       if (moveList.length == 20) callStartEnemy();
       drawLab();
-    }
-	else if(checkMoveUp(coords["i"], coords["j"]) == 2){
-	  map1[coords["i"] - 1][coords["j"]] = "M";
+    } else if (checkMoveUp(coords["i"], coords["j"]) == 2) {
+      map1[coords["i"] - 1][coords["j"]] = "M";
       map1[coords["i"]][coords["j"]] = "G";
-	  victory();
+      victory();
       drawLab();
-	}
+    }
   } else if (e.keyCode == "40") {
     if (checkMoveDown(coords["i"], coords["j"]) == 1) {
       map1[coords["i"] + 1][coords["j"]] = "M";
@@ -63,13 +63,12 @@ function checkKey(e) {
       if (moveList.length == 10) map1[0][0] = "O";
       if (moveList.length == 20) callStartEnemy();
       drawLab();
-    }
-	else if(checkMoveDown(coords["i"], coords["j"]) == 2){
-	  map1[coords["i"] + 1][coords["j"]] = "M";
+    } else if (checkMoveDown(coords["i"], coords["j"]) == 2) {
+      map1[coords["i"] + 1][coords["j"]] = "M";
       map1[coords["i"]][coords["j"]] = "G";
-	  victory();
-	  drawLab();
-	}
+      victory();
+      drawLab();
+    }
   } else if (e.keyCode == "37") {
     if (checkMoveLeft(coords["i"], coords["j"]) == 1) {
       map1[coords["i"]][coords["j"] - 1] = "M";
@@ -78,13 +77,12 @@ function checkKey(e) {
       if (moveList.length == 10) map1[0][0] = "O";
       if (moveList.length == 20) callStartEnemy();
       drawLab();
-    }
-	else if(checkMoveLeft(coords["i"], coords["j"]) == 2){
-	  map1[coords["i"]][coords["j"] - 1] = "M";
+    } else if (checkMoveLeft(coords["i"], coords["j"]) == 2) {
+      map1[coords["i"]][coords["j"] - 1] = "M";
       map1[coords["i"]][coords["j"]] = "G";
-	  victory();
-	  drawLab();
-	}
+      victory();
+      drawLab();
+    }
   } else if (e.keyCode == "39") {
     if (checkMoveRight(coords["i"], coords["j"]) == 1) {
       map1[coords["i"]][coords["j"] + 1] = "M";
@@ -93,13 +91,12 @@ function checkKey(e) {
       if (moveList.length == 10) map1[0][0] = "O";
       if (moveList.length == 20) callStartEnemy();
       drawLab();
-    }
-	else if(checkMoveRight(coords["i"], coords["j"]) == 2){
-	  map1[coords["i"]][coords["j"] + 1] = "M";
+    } else if (checkMoveRight(coords["i"], coords["j"]) == 2) {
+      map1[coords["i"]][coords["j"] + 1] = "M";
       map1[coords["i"]][coords["j"]] = "G";
-	  victory();
-	  drawLab();
-	}
+      victory();
+      drawLab();
+    }
   }
 }
 
@@ -118,13 +115,12 @@ document.addEventListener("keypress", (e) => {
         if (moveList.length == 10) map1[0][0] = "O";
         if (moveList.length == 20) callStartEnemy();
         drawLab();
+      } else if (checkMoveUp(coords["i"], coords["j"]) == 2) {
+        map1[coords["i"] - 1][coords["j"]] = "M";
+        map1[coords["i"]][coords["j"]] = "G";
+        victory();
+        drawLab();
       }
-	  else if(checkMoveUp(coords["i"], coords["j"]) == 2){
-	  map1[coords["i"] - 1][coords["j"]] = "M";
-      map1[coords["i"]][coords["j"]] = "G";
-	  victory();
-      drawLab();
-	  }
       break;
     case "a":
     case "A":
@@ -136,13 +132,12 @@ document.addEventListener("keypress", (e) => {
         if (moveList.length == 10) map1[0][0] = "O";
         if (moveList.length == 20) callStartEnemy();
         drawLab();
+      } else if (checkMoveLeft(coords["i"], coords["j"]) == 2) {
+        map1[coords["i"]][coords["j"] - 1] = "M";
+        map1[coords["i"]][coords["j"]] = "G";
+        victory();
+        drawLab();
       }
-	  else if(checkMoveLeft(coords["i"], coords["j"]) == 2){
-	  map1[coords["i"]][coords["j"] - 1] = "M";
-      map1[coords["i"]][coords["j"]] = "G";
-	  victory();
-	  drawLab();
-	}
 
       break;
     case "s":
@@ -155,13 +150,12 @@ document.addEventListener("keypress", (e) => {
         if (moveList.length == 10) map1[0][0] = "O";
         if (moveList.length == 20) callStartEnemy();
         drawLab();
+      } else if (checkMoveDown(coords["i"], coords["j"]) == 2) {
+        map1[coords["i"] + 1][coords["j"]] = "M";
+        map1[coords["i"]][coords["j"]] = "G";
+        victory();
+        drawLab();
       }
-	  else if(checkMoveDown(coords["i"], coords["j"]) == 2){
-	  map1[coords["i"] + 1][coords["j"]] = "M";
-      map1[coords["i"]][coords["j"]] = "G";
-	  victory();
-	  drawLab();
-	}
       break;
     case "d":
     case "D":
@@ -173,13 +167,12 @@ document.addEventListener("keypress", (e) => {
         if (moveList.length == 10) map1[0][0] = "O";
         if (moveList.length == 20) callStartEnemy();
         drawLab();
+      } else if (checkMoveRight(coords["i"], coords["j"]) == 2) {
+        map1[coords["i"]][coords["j"] + 1] = "M";
+        map1[coords["i"]][coords["j"]] = "G";
+        victory();
+        drawLab();
       }
-	  else if(checkMoveRight(coords["i"], coords["j"]) == 2){
-	  map1[coords["i"]][coords["j"] + 1] = "M";
-      map1[coords["i"]][coords["j"]] = "G";
-	  victory();
-	  drawLab();
-	}
       break;
     default:
       break;
@@ -187,12 +180,12 @@ document.addEventListener("keypress", (e) => {
 });
 
 let condition = 0;
-let to=null;
+let to = null;
 
 function callStartEnemy() {
   startEnemy(condition);
   condition++;
-  to=setTimeout(callStartEnemy, 400);
+  to = setTimeout(callStartEnemy, 400);
 }
 
 function startEnemy(y) {
@@ -241,55 +234,52 @@ function findMc(type) {
 //next functions are used to check if a move in a cardinal direction is possible
 function checkMoveDown(x, y) {
   if (map1[x + 1][y] == "." || map1[x + 1][y] == "G") {
-	
-	return 1;
+    return 1;
   }
-  if(map1[x + 1][y] == "E"){
-		return 2;
-	}
-    
+  if (map1[x + 1][y] == "E") {
+    return 2;
+  }
 }
 
 function checkMoveLeft(x, y) {
   if (map1[x][y - 1] == "." || map1[x][y - 1] == "G") {
-	
     return 1;
   }
-  if(map1[x][y - 1] == "E"){
-		return 2;
-	}
+  if (map1[x][y - 1] == "E") {
+    return 2;
+  }
 }
 function checkMoveRight(x, y) {
   if (map1[x][y + 1] == "." || map1[x][y + 1] == "G") {
-	  
     return 1;
   }
-  if(map1[x][y + 1] == "E"){
-		return 2;
-	}
+  if (map1[x][y + 1] == "E") {
+    return 2;
+  }
 }
 function checkMoveUp(x, y) {
-  if (map1[x - 1][y] == "." || map1[x - 1][y] == "G" ) {
-	  if(map1[x - 1][y] == "E"){
-		return 2;
-	  }
+  if (map1[x - 1][y] == "." || map1[x - 1][y] == "G") {
+    if (map1[x - 1][y] == "E") {
+      return 2;
+    }
     return 1;
   }
-  if(map1[x - 1][y] == "E"){
-		return 2;
-	  }
+  if (map1[x - 1][y] == "E") {
+    return 2;
+  }
 }
 
 function victory() {
-	clearTimeout(to);
-	Swal.fire({
-	imageUrl: "https://cdn.dribbble.com/users/2157206/screenshots/15756062/media/74963d0afeda20ccb60d92d4ac84afd4.gif",
-    imageWidth: 450,
+  clearTimeout(to);
+  Swal.fire({
+    imageUrl:
+      "https://cdn.dribbble.com/users/2157206/screenshots/15756062/media/74963d0afeda20ccb60d92d4ac84afd4.gif",
+    imageWidth: 300,
     imageHeight: 225,
-    imageAlt: "Eagle Image",
-	background: "url(https://pixelartmaker-data-78746291193.nyc3.digitaloceanspaces.com/image/6b5b87ade3ed58e.png)",
-	})	
-
+    imageAlt: "gifič",
+    background:
+      "url(http://pixelartmaker-data-78746291193.nyc3.digitaloceanspaces.com/image/6b5b87ade3ed58e.png)",
+  });
 }
 
 //maze generator!!
@@ -302,10 +292,7 @@ function drawLab() {
         ctx.drawImage(walls, x, y);
         x = x + 20;
       } else if (map1[i][j] == "E") {
-        ctx.beginPath();
-        ctx.fillStyle = "green";
-        ctx.rect(x, y, 20, 20);
-        ctx.fill();
+        ctx.drawImage(finish, x, y);
         x = x + 20;
       } else if (map1[i][j] == "M") {
         ctx.beginPath();
