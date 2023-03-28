@@ -1,3 +1,4 @@
+
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 const path = document.getElementById("sandPath");
@@ -5,7 +6,7 @@ const walls = document.getElementById("sandWall");
 const walkPath = document.getElementById("walkedPath");
 const boulder = document.getElementById("boulder");
 const finish = document.getElementById("finish");
-let map1 = [
+let mapEasy = [
   "M.#############################",
   "....#...#.....#.......#.#...#.#",
   "#.###.###.###.#.#####.#.###.#.#",
@@ -28,11 +29,71 @@ let map1 = [
   "#...#.#........................",
   "#############################.E",
 ];
+let mapMedium=[
+  "M.#############################",
+  "..........#.#.....#.#...#...#.#",
+  "###.###.#.#.#.#####.#.###.###.#",
+  "#...#...#.#.....#.......#.....#",
+  "#.#####.#.#.#######.#.#.#####.#",
+  "#.#...#.#...........#.#.....#.#",
+  "###.#.#####.###.#.#######.###.#",
+  "#...#.#...#.#.#.#.#...#.#...#.#",
+  "#.#######.#.#.###.###.#.#.#.#.#",
+  "#.....#.....#...#.....#.#.#...#",
+  "#.###.#.###.###.#.#####.###.###",
+  "#.#.#.....#.#.#.....#...#.#...#",
+  "#.#.#.###.###.###.#####.#.#####",
+  "#...#...#.......#.............#",
+  "#.#.#.#.###.###########.#####.#",
+  "#.#.#.#...#.....#.#...#.#.....#",
+  "###.#########.###.###.#.#.###.#",
+  "#...#.......#...#.....#.#.#.#.#",
+  "###.#####.###.#####.#.###.#.###",
+  "#.....#.......#.....#..........",
+  "#############################.E",
+];
 
+let mapHard=[
+  "M.#############################",
+  "......#.#.........#.#.....#...#",
+  "#.#####.###.#.#.###.#.###.#.###",
+  "#.......#...#.#.#...#...#.#...#",
+  "#.#.#######.#####.###.###.###.#",
+  "#.#.......#...#.#.#.#.#.#.....#",
+  "#.###########.#.#.#.###.#.#.###",
+  "#.#...#.......#.....#...#.#.#.#",
+  "#.#.###.#####.#.#.#.###.###.#.#",
+  "#.#.#.#.....#.#.#.#.#.....#...#",
+  "#.#.#.#.###.#.#####.#.#####.#.#",
+  "#.#.......#.#.......#.#...#.#.#",
+  "#.#.#.#.#####.###.###.###.###.#",
+  "#...#.#...#.#.#...............#",
+  "#.#.###.###.#.###.#.#######.#.#",
+  "#.#...#.#.....#...#.#...#...#.#",
+  "#.#################.###.#.#.###",
+  "#.#.......#.......#.#.....#.#.#",
+  "#.#.#.#.###.###.#.###.#######.#",
+  "#...#.#...#.#...#..............",
+  "#############################.E",
+];
+function onLoad(){
+  Swal.fire({
+    title: 'How old are you?',
+    icon: 'question',
+    input: 'range',
+    inputLabel: 'Your age',
+    inputAttributes: {
+      min: 1,
+      max: 3,
+      step: 1
+    },
+    inputValue: 1
+  })
+}
 //variable for storing the number of moves
 let moveList = "";
 
-for (let i = 0; i < map1.length; i++) map1[i] = map1[i].split("");
+for (let i = 0; i < mapMedium.length; i++) mapMedium[i] = mapMedium[i].split("");
 drawLab();
 document.onkeydown = checkKey;
 
@@ -43,57 +104,57 @@ function checkKey(e) {
 
   if (e.keyCode == "38") {
     if (checkMoveUp(coords["i"], coords["j"]) == 1) {
-      map1[coords["i"] - 1][coords["j"]] = "M";
-      map1[coords["i"]][coords["j"]] = "G";
+      mapMedium[coords["i"] - 1][coords["j"]] = "M";
+      mapMedium[coords["i"]][coords["j"]] = "G";
       moveList = moveList + "w";
-      if (moveList.length == 10) map1[0][0] = "O";
+      if (moveList.length == 10) mapMedium[0][0] = "O";
       if (moveList.length == 20) callStartEnemy();
       drawLab();
     } else if (checkMoveUp(coords["i"], coords["j"]) == 2) {
-      map1[coords["i"] - 1][coords["j"]] = "M";
-      map1[coords["i"]][coords["j"]] = "G";
+      mapMedium[coords["i"] - 1][coords["j"]] = "M";
+      mapMedium[coords["i"]][coords["j"]] = "G";
       victory();
       drawLab();
     }
   } else if (e.keyCode == "40") {
     if (checkMoveDown(coords["i"], coords["j"]) == 1) {
-      map1[coords["i"] + 1][coords["j"]] = "M";
-      map1[coords["i"]][coords["j"]] = "G";
+      mapMedium[coords["i"] + 1][coords["j"]] = "M";
+      mapMedium[coords["i"]][coords["j"]] = "G";
       moveList = moveList + "s";
-      if (moveList.length == 10) map1[0][0] = "O";
+      if (moveList.length == 10) mapMedium[0][0] = "O";
       if (moveList.length == 20) callStartEnemy();
       drawLab();
     } else if (checkMoveDown(coords["i"], coords["j"]) == 2) {
-      map1[coords["i"] + 1][coords["j"]] = "M";
-      map1[coords["i"]][coords["j"]] = "G";
+      mapMedium[coords["i"] + 1][coords["j"]] = "M";
+      mapMedium[coords["i"]][coords["j"]] = "G";
       victory();
       drawLab();
     }
   } else if (e.keyCode == "37") {
     if (checkMoveLeft(coords["i"], coords["j"]) == 1) {
-      map1[coords["i"]][coords["j"] - 1] = "M";
-      map1[coords["i"]][coords["j"]] = "G";
+      mapMedium[coords["i"]][coords["j"] - 1] = "M";
+      mapMedium[coords["i"]][coords["j"]] = "G";
       moveList = moveList + "a";
-      if (moveList.length == 10) map1[0][0] = "O";
+      if (moveList.length == 10) mapMedium[0][0] = "O";
       if (moveList.length == 20) callStartEnemy();
       drawLab();
     } else if (checkMoveLeft(coords["i"], coords["j"]) == 2) {
-      map1[coords["i"]][coords["j"] - 1] = "M";
-      map1[coords["i"]][coords["j"]] = "G";
+      mapMedium[coords["i"]][coords["j"] - 1] = "M";
+      mapMedium[coords["i"]][coords["j"]] = "G";
       victory();
       drawLab();
     }
   } else if (e.keyCode == "39") {
     if (checkMoveRight(coords["i"], coords["j"]) == 1) {
-      map1[coords["i"]][coords["j"] + 1] = "M";
-      map1[coords["i"]][coords["j"]] = "G";
+      mapMedium[coords["i"]][coords["j"] + 1] = "M";
+      mapMedium[coords["i"]][coords["j"]] = "G";
       moveList = moveList + "d";
-      if (moveList.length == 10) map1[0][0] = "O";
+      if (moveList.length == 10) mapMedium[0][0] = "O";
       if (moveList.length == 20) callStartEnemy();
       drawLab();
     } else if (checkMoveRight(coords["i"], coords["j"]) == 2) {
-      map1[coords["i"]][coords["j"] + 1] = "M";
-      map1[coords["i"]][coords["j"]] = "G";
+      mapMedium[coords["i"]][coords["j"] + 1] = "M";
+      mapMedium[coords["i"]][coords["j"]] = "G";
       victory();
       drawLab();
     }
@@ -108,16 +169,16 @@ document.addEventListener("keypress", (e) => {
     case "w":
     case "W":
       if (checkMoveUp(coords["i"], coords["j"]) == 1) {
-        map1[coords["i"] - 1][coords["j"]] = "M";
-        map1[coords["i"]][coords["j"]] = "G";
+        mapMedium[coords["i"] - 1][coords["j"]] = "M";
+        mapMedium[coords["i"]][coords["j"]] = "G";
         moveList = moveList + "w";
         console.log(moveList);
-        if (moveList.length == 10) map1[0][0] = "O";
+        if (moveList.length == 10) mapMedium[0][0] = "O";
         if (moveList.length == 20) callStartEnemy();
         drawLab();
       } else if (checkMoveUp(coords["i"], coords["j"]) == 2) {
-        map1[coords["i"] - 1][coords["j"]] = "M";
-        map1[coords["i"]][coords["j"]] = "G";
+        mapMedium[coords["i"] - 1][coords["j"]] = "M";
+        mapMedium[coords["i"]][coords["j"]] = "G";
         victory();
         drawLab();
       }
@@ -125,16 +186,16 @@ document.addEventListener("keypress", (e) => {
     case "a":
     case "A":
       if (checkMoveLeft(coords["i"], coords["j"]) == 1) {
-        map1[coords["i"]][coords["j"] - 1] = "M";
-        map1[coords["i"]][coords["j"]] = "G";
+        mapMedium[coords["i"]][coords["j"] - 1] = "M";
+        mapMedium[coords["i"]][coords["j"]] = "G";
         moveList = moveList + "a";
         console.log(moveList);
-        if (moveList.length == 10) map1[0][0] = "O";
+        if (moveList.length == 10) mapMedium[0][0] = "O";
         if (moveList.length == 20) callStartEnemy();
         drawLab();
       } else if (checkMoveLeft(coords["i"], coords["j"]) == 2) {
-        map1[coords["i"]][coords["j"] - 1] = "M";
-        map1[coords["i"]][coords["j"]] = "G";
+        mapMedium[coords["i"]][coords["j"] - 1] = "M";
+        mapMedium[coords["i"]][coords["j"]] = "G";
         victory();
         drawLab();
       }
@@ -143,16 +204,16 @@ document.addEventListener("keypress", (e) => {
     case "s":
     case "S":
       if (checkMoveDown(coords["i"], coords["j"]) == 1) {
-        map1[coords["i"] + 1][coords["j"]] = "M";
-        map1[coords["i"]][coords["j"]] = "G";
+        mapMedium[coords["i"] + 1][coords["j"]] = "M";
+        mapMedium[coords["i"]][coords["j"]] = "G";
         moveList = moveList + "s";
         console.log(moveList);
-        if (moveList.length == 10) map1[0][0] = "O";
+        if (moveList.length == 10) mapMedium[0][0] = "O";
         if (moveList.length == 20) callStartEnemy();
         drawLab();
       } else if (checkMoveDown(coords["i"], coords["j"]) == 2) {
-        map1[coords["i"] + 1][coords["j"]] = "M";
-        map1[coords["i"]][coords["j"]] = "G";
+        mapMedium[coords["i"] + 1][coords["j"]] = "M";
+        mapMedium[coords["i"]][coords["j"]] = "G";
         victory();
         drawLab();
       }
@@ -160,16 +221,16 @@ document.addEventListener("keypress", (e) => {
     case "d":
     case "D":
       if (checkMoveRight(coords["i"], coords["j"]) == 1) {
-        map1[coords["i"]][coords["j"] + 1] = "M";
-        map1[coords["i"]][coords["j"]] = "G";
+        mapMedium[coords["i"]][coords["j"] + 1] = "M";
+        mapMedium[coords["i"]][coords["j"]] = "G";
         moveList = moveList + "d";
 
-        if (moveList.length == 10) map1[0][0] = "O";
+        if (moveList.length == 10) mapMedium[0][0] = "O";
         if (moveList.length == 20) callStartEnemy();
         drawLab();
       } else if (checkMoveRight(coords["i"], coords["j"]) == 2) {
-        map1[coords["i"]][coords["j"] + 1] = "M";
-        map1[coords["i"]][coords["j"]] = "G";
+        mapMedium[coords["i"]][coords["j"] + 1] = "M";
+        mapMedium[coords["i"]][coords["j"]] = "G";
         victory();
         drawLab();
       }
@@ -185,30 +246,30 @@ let to = null;
 function callStartEnemy() {
   startEnemy(condition);
   condition++;
-  to = setTimeout(callStartEnemy, 400);
+  to = setTimeout(callStartEnemy, 200);
 }
 
 function startEnemy(y) {
   let enemyCoords = findMc("O");
   if (moveList.charAt(y) == "w") {
     console.log(enemyCoords);
-    map1[enemyCoords["i"] - 1][enemyCoords["j"]] = "O";
-    map1[enemyCoords["i"]][enemyCoords["j"]] = ".";
+    mapMedium[enemyCoords["i"] - 1][enemyCoords["j"]] = "O";
+    mapMedium[enemyCoords["i"]][enemyCoords["j"]] = ".";
     drawLab();
   } else if (moveList.charAt(y) == "a") {
     console.log(enemyCoords);
-    map1[enemyCoords["i"]][enemyCoords["j"] - 1] = "O";
-    map1[enemyCoords["i"]][enemyCoords["j"]] = ".";
+    mapMedium[enemyCoords["i"]][enemyCoords["j"] - 1] = "O";
+    mapMedium[enemyCoords["i"]][enemyCoords["j"]] = ".";
     drawLab();
   } else if (moveList.charAt(y) == "s") {
     console.log(enemyCoords);
-    map1[enemyCoords["i"] + 1][enemyCoords["j"]] = "O";
-    map1[enemyCoords["i"]][enemyCoords["j"]] = ".";
+    mapMedium[enemyCoords["i"] + 1][enemyCoords["j"]] = "O";
+    mapMedium[enemyCoords["i"]][enemyCoords["j"]] = ".";
     drawLab();
   } else if (moveList.charAt(y) == "d") {
     console.log(enemyCoords);
-    map1[enemyCoords["i"]][enemyCoords["j"] + 1] = "O";
-    map1[enemyCoords["i"]][enemyCoords["j"]] = ".";
+    mapMedium[enemyCoords["i"]][enemyCoords["j"] + 1] = "O";
+    mapMedium[enemyCoords["i"]][enemyCoords["j"]] = ".";
     drawLab();
   }
   drawLab();
@@ -216,14 +277,14 @@ function startEnemy(y) {
 
 //gets coordinates of the character
 function findMc(type) {
-  for (let i = 0; i < map1.length; i++) {
-    for (let j = 0; j < map1[i].length; j++) {
+  for (let i = 0; i < mapMedium.length; i++) {
+    for (let j = 0; j < mapMedium[i].length; j++) {
       if (type == "M") {
-        if (map1[i][j] == "M") {
+        if (mapMedium[i][j] == "M") {
           return { i, j };
         }
       } else if (type == "O") {
-        if (map1[i][j] == "O") {
+        if (mapMedium[i][j] == "O") {
           return { i, j };
         }
       }
@@ -233,38 +294,38 @@ function findMc(type) {
 
 //next functions are used to check if a move in a cardinal direction is possible
 function checkMoveDown(x, y) {
-  if (map1[x + 1][y] == "." || map1[x + 1][y] == "G") {
+  if (mapMedium[x + 1][y] == "." || mapMedium[x + 1][y] == "G") {
     return 1;
   }
-  if (map1[x + 1][y] == "E") {
+  if (mapMedium[x + 1][y] == "E") {
     return 2;
   }
 }
 
 function checkMoveLeft(x, y) {
-  if (map1[x][y - 1] == "." || map1[x][y - 1] == "G") {
+  if (mapMedium[x][y - 1] == "." || mapMedium[x][y - 1] == "G") {
     return 1;
   }
-  if (map1[x][y - 1] == "E") {
+  if (mapMedium[x][y - 1] == "E") {
     return 2;
   }
 }
 function checkMoveRight(x, y) {
-  if (map1[x][y + 1] == "." || map1[x][y + 1] == "G") {
+  if (mapMedium[x][y + 1] == "." || mapMedium[x][y + 1] == "G") {
     return 1;
   }
-  if (map1[x][y + 1] == "E") {
+  if (mapMedium[x][y + 1] == "E") {
     return 2;
   }
 }
 function checkMoveUp(x, y) {
-  if (map1[x - 1][y] == "." || map1[x - 1][y] == "G") {
-    if (map1[x - 1][y] == "E") {
+  if (mapMedium[x - 1][y] == "." || mapMedium[x - 1][y] == "G") {
+    if (mapMedium[x - 1][y] == "E") {
       return 2;
     }
     return 1;
   }
-  if (map1[x - 1][y] == "E") {
+  if (mapMedium[x - 1][y] == "E") {
     return 2;
   }
 }
@@ -284,26 +345,26 @@ function victory() {
 
 //maze generator!!
 function drawLab() {
-  for (let i = 0; i < map1.length; i++) {
+  for (let i = 0; i < mapMedium.length; i++) {
     let x = 0;
     let y = i * 20;
-    for (let j = 0; j < map1[i].length; j++) {
-      if (map1[i][j] == "#") {
+    for (let j = 0; j < mapMedium[i].length; j++) {
+      if (mapMedium[i][j] == "#") {
         ctx.drawImage(walls, x, y);
         x = x + 20;
-      } else if (map1[i][j] == "E") {
+      } else if (mapMedium[i][j] == "E") {
         ctx.drawImage(finish, x, y);
         x = x + 20;
-      } else if (map1[i][j] == "M") {
+      } else if (mapMedium[i][j] == "M") {
         ctx.beginPath();
         ctx.fillStyle = "red";
         ctx.rect(x, y, 20, 20);
         ctx.fill();
         x = x + 20;
-      } else if (map1[i][j] == "G") {
+      } else if (mapMedium[i][j] == "G") {
         ctx.drawImage(walkPath, x, y);
         x = x + 20;
-      } else if (map1[i][j] == "O") {
+      } else if (mapMedium[i][j] == "O") {
         ctx.drawImage(boulder, x, y);
         x = x + 20;
       } else {
