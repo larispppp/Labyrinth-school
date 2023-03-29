@@ -333,13 +333,10 @@ function checkMoveUp(x, y) {
 function victory() {
   clearTimeout(to);
   Swal.fire({
-    imageUrl:
-      "https://cdn.dribbble.com/users/2157206/screenshots/15756062/media/74963d0afeda20ccb60d92d4ac84afd4.gif",
-    imageWidth: 300,
-    imageHeight: 225,
-    imageAlt: "gifič",
+    html: '<div style="display:grid;place-items:center;margin: 50px 0"><div style="margin:25px; width: 60%; background-image: url(assets/img/end.gif); background-size: cover; display: grid; aspect-ratio: 8/6;"><img src="assets/img/frame1.png" alt="" style="transform: translateY(-10%);display: flex; justify-self: center; width: 120%; height: 120%"/></div></div > ',
     background:
       "url(http://pixelartmaker-data-78746291193.nyc3.digitaloceanspaces.com/image/6b5b87ade3ed58e.png)",
+    confirmButtonColor: "rgba(38, 36, 36, 0.95)"
   });
 }
 
