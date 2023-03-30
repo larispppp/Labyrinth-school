@@ -1,3 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel&display=swap");
+body {
+  background-image: url("../img/background.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+#header {
+  position: relative;
+  margin: auto;
+  height: fit-content;
+  width: fit-content;
+  font-size: 72px;
+  font-family: "Cinzel", serif;
+  font-weight: 600;
+}
 #wrapper {
   position: relative;
   margin: auto;
@@ -6,4 +22,16 @@
 }
 #myCanvas {
   background-color: aqua;
+}
+.swal2-range {
+  margin: 1em 2em 3px;
+  background: rgba(255, 254, 254, 0.561);
+  border-radius: 4px;
+  box-shadow: rgba(255, 254, 254, 0.561) 0px 0px 5px 5px;
+}
+.box {
+  font-family: "Cinzel", serif;
+  background-color: rgb(146 174 184 / 81%);
+  box-shadow: rgb(146 174 184 / 81%) 0px 0px 10px 10px;
+  margin: 20px;
 }

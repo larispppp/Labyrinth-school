@@ -1,4 +1,3 @@
-
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 const path = document.getElementById("sandPath");
@@ -6,6 +5,7 @@ const walls = document.getElementById("sandWall");
 const walkPath = document.getElementById("walkedPath");
 const boulder = document.getElementById("boulder");
 const finish = document.getElementById("finish");
+const cowboyLeft = document.getElementById("left");
 let mapEasy = [
   "M.#############################",
   "....#...#.....#.......#.#...#.#",
@@ -26,10 +26,10 @@ let mapEasy = [
   "#.#.###.#####.#.###.#####.###.#",
   "#.#.#.......#.#.#.......#...#.#",
   "#.#.#.###.#######.#########.###",
-  "#...#.#........................",
-  "#############################.E",
+  "#...#.#......................E#",
+  "###############################",
 ];
-let mapMedium=[
+let mapMedium = [
   "M.#############################",
   "..........#.#.....#.#...#...#.#",
   "###.###.#.#.#.#####.#.###.###.#",
@@ -49,11 +49,11 @@ let mapMedium=[
   "###.#########.###.###.#.#.###.#",
   "#...#.......#...#.....#.#.#.#.#",
   "###.#####.###.#####.#.###.#.###",
-  "#.....#.......#.....#..........",
-  "#############################.E",
+  "#.....#.......#.....#........E#",
+  "###############################",
 ];
 
-let mapHard=[
+let mapHard = [
   "M.#############################",
   "......#.#.........#.#.....#...#",
   "#.#####.###.#.#.###.#.###.#.###",
@@ -73,27 +73,32 @@ let mapHard=[
   "#.#################.###.#.#.###",
   "#.#.......#.......#.#.....#.#.#",
   "#.#.#.#.###.###.#.###.#######.#",
-  "#...#.#...#.#...#..............",
-  "#############################.E",
+  "#...#.#...#.#...#............E#",
+  "###############################",
 ];
-function onLoad(){
+let speedPre = 0;
+function onLoad() {
   Swal.fire({
-    title: 'How old are you?',
-    icon: 'question',
-    input: 'range',
-    inputLabel: 'Your age',
+    title: "Choose your difficulty.",
+    input: "range",
+    background: "url(assets/img/intro_sweet.png)",
+    confirmButtonColor: "rgba(38, 36, 36, 0.95)",
     inputAttributes: {
       min: 1,
       max: 3,
-      step: 1
+      step: 1,
     },
-    inputValue: 1
-  })
+    inputValue: 1,
+  }).then((result) => {
+    speedPre = result.value[0];
+  });
 }
+
 //variable for storing the number of moves
 let moveList = "";
 
-for (let i = 0; i < mapMedium.length; i++) mapMedium[i] = mapMedium[i].split("");
+for (let i = 0; i < mapMedium.length; i++)
+  mapMedium[i] = mapMedium[i].split("");
 drawLab();
 document.onkeydown = checkKey;
 
@@ -108,7 +113,7 @@ function checkKey(e) {
       mapMedium[coords["i"]][coords["j"]] = "G";
       moveList = moveList + "w";
       if (moveList.length == 10) mapMedium[0][0] = "O";
-      if (moveList.length == 20) callStartEnemy();
+      if (moveList.length == 11) callStartEnemy();
       drawLab();
     } else if (checkMoveUp(coords["i"], coords["j"]) == 2) {
       mapMedium[coords["i"] - 1][coords["j"]] = "M";
@@ -122,7 +127,7 @@ function checkKey(e) {
       mapMedium[coords["i"]][coords["j"]] = "G";
       moveList = moveList + "s";
       if (moveList.length == 10) mapMedium[0][0] = "O";
-      if (moveList.length == 20) callStartEnemy();
+      if (moveList.length == 11) callStartEnemy();
       drawLab();
     } else if (checkMoveDown(coords["i"], coords["j"]) == 2) {
       mapMedium[coords["i"] + 1][coords["j"]] = "M";
@@ -136,7 +141,7 @@ function checkKey(e) {
       mapMedium[coords["i"]][coords["j"]] = "G";
       moveList = moveList + "a";
       if (moveList.length == 10) mapMedium[0][0] = "O";
-      if (moveList.length == 20) callStartEnemy();
+      if (moveList.length == 11) callStartEnemy();
       drawLab();
     } else if (checkMoveLeft(coords["i"], coords["j"]) == 2) {
       mapMedium[coords["i"]][coords["j"] - 1] = "M";
@@ -150,7 +155,7 @@ function checkKey(e) {
       mapMedium[coords["i"]][coords["j"]] = "G";
       moveList = moveList + "d";
       if (moveList.length == 10) mapMedium[0][0] = "O";
-      if (moveList.length == 20) callStartEnemy();
+      if (moveList.length == 11) callStartEnemy();
       drawLab();
     } else if (checkMoveRight(coords["i"], coords["j"]) == 2) {
       mapMedium[coords["i"]][coords["j"] + 1] = "M";
@@ -174,7 +179,7 @@ document.addEventListener("keypress", (e) => {
         moveList = moveList + "w";
         console.log(moveList);
         if (moveList.length == 10) mapMedium[0][0] = "O";
-        if (moveList.length == 20) callStartEnemy();
+        if (moveList.length == 11) callStartEnemy();
         drawLab();
       } else if (checkMoveUp(coords["i"], coords["j"]) == 2) {
         mapMedium[coords["i"] - 1][coords["j"]] = "M";
@@ -191,7 +196,7 @@ document.addEventListener("keypress", (e) => {
         moveList = moveList + "a";
         console.log(moveList);
         if (moveList.length == 10) mapMedium[0][0] = "O";
-        if (moveList.length == 20) callStartEnemy();
+        if (moveList.length == 11) callStartEnemy();
         drawLab();
       } else if (checkMoveLeft(coords["i"], coords["j"]) == 2) {
         mapMedium[coords["i"]][coords["j"] - 1] = "M";
@@ -209,7 +214,7 @@ document.addEventListener("keypress", (e) => {
         moveList = moveList + "s";
         console.log(moveList);
         if (moveList.length == 10) mapMedium[0][0] = "O";
-        if (moveList.length == 20) callStartEnemy();
+        if (moveList.length == 11) callStartEnemy();
         drawLab();
       } else if (checkMoveDown(coords["i"], coords["j"]) == 2) {
         mapMedium[coords["i"] + 1][coords["j"]] = "M";
@@ -226,7 +231,7 @@ document.addEventListener("keypress", (e) => {
         moveList = moveList + "d";
 
         if (moveList.length == 10) mapMedium[0][0] = "O";
-        if (moveList.length == 20) callStartEnemy();
+        if (moveList.length == 11) callStartEnemy();
         drawLab();
       } else if (checkMoveRight(coords["i"], coords["j"]) == 2) {
         mapMedium[coords["i"]][coords["j"] + 1] = "M";
@@ -242,11 +247,20 @@ document.addEventListener("keypress", (e) => {
 
 let condition = 0;
 let to = null;
+let speed = 0;
 
 function callStartEnemy() {
+  if (speedPre == 1) {
+    speed = 300;
+  } else if (speedPre == 2) {
+    speed = 200;
+  } else {
+    console.log(speedPre);
+    speed = 100;
+  }
   startEnemy(condition);
   condition++;
-  to = setTimeout(callStartEnemy, 200);
+  to = setTimeout(callStartEnemy, speed);
 }
 
 function startEnemy(y) {
@@ -333,10 +347,13 @@ function checkMoveUp(x, y) {
 function victory() {
   clearTimeout(to);
   Swal.fire({
-    html: '<div style="display:grid;place-items:center;margin: 50px 0"><div style="margin:25px; width: 60%; background-image: url(assets/img/end.gif); background-size: cover; display: grid; aspect-ratio: 8/6;"><img src="assets/img/frame1.png" alt="" style="transform: translateY(-10%);display: flex; justify-self: center; width: 120%; height: 120%"/></div></div > ',
+    html: '<div style="display:grid;place-items:center;margin: 50px 0"><div style="margin:25px; width: 60%; background-image: url(assets/img/end.gif); background-size: contain ; background-repeat: no-repeat; display: grid;"><img src="assets/img/frame1.png" alt="" style="transform: translateY(-10%);display: flex; justify-self: center; width: 120%; height: 110%"/></div></div ><div class="box"><a style="font-size:25px; color:forestgreen; font-weight: 600">Congratulations you found the Golden idol!!</a></div>',
     background:
       "url(http://pixelartmaker-data-78746291193.nyc3.digitaloceanspaces.com/image/6b5b87ade3ed58e.png)",
-    confirmButtonColor: "rgba(38, 36, 36, 0.95)"
+    confirmButtonColor: "rgba(38, 36, 36, 0.95)",
+    text: "",
+  }).then(() => {
+    location.reload();
   });
 }
 
@@ -353,10 +370,7 @@ function drawLab() {
         ctx.drawImage(finish, x, y);
         x = x + 20;
       } else if (mapMedium[i][j] == "M") {
-        ctx.beginPath();
-        ctx.fillStyle = "red";
-        ctx.rect(x, y, 20, 20);
-        ctx.fill();
+        ctx.drawImage(cowboyLeft, x, y);
         x = x + 20;
       } else if (mapMedium[i][j] == "G") {
         ctx.drawImage(walkPath, x, y);
